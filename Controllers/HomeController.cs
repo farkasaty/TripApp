@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TripApp.Models;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace TripApp.Controllers
 {
@@ -13,15 +14,25 @@ namespace TripApp.Controllers
     {
         private ITripRepository db;
         private IConfiguration _config;
+        private ILogger<HomeController> _logger;
 
-        public HomeController(IConfiguration config, ITripRepository tripRepository)
+        public HomeController(IConfiguration config, ITripRepository tripRepository, ILogger<HomeController> logger)
         {
             db = tripRepository;
             _config = config;
+            _logger = logger;
         }
 
         public IActionResult Index()
         {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"There is a bug in your application: {ex.Message}");
+            }
             ViewBag.TripCount = db.GetAllTrips().Count();
             return View();
         }

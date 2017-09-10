@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TripApp.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace TripApp
 {
@@ -26,22 +27,24 @@ namespace TripApp
             services.AddSingleton(Configuration);
 
             services.AddDbContext<TripContext>(options => options.UseSqlServer(Configuration.GetConnectionString("TripContext")));
-            services.AddScoped<ITripRepository, MockTripRepository>();
+            services.AddScoped<ITripRepository, TripRepository>();
             services.AddMvc();
             services.AddTransient<TripSeeder>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, TripSeeder seeder)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, TripSeeder seeder, ILoggerFactory logger)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseBrowserLink();
+                logger.AddDebug(LogLevel.Information);
             }
             else
             {
                 app.UseExceptionHandler("/Home/Error");
+                logger.AddDebug(LogLevel.Error);
             }
 
             app.UseStaticFiles();
