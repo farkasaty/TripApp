@@ -27,13 +27,12 @@ namespace TripApp.Controllers
         {
             try
             {
-
+                ViewBag.TripCount = db.GetAllTrips().Count();
             }
             catch (Exception ex)
             {
                 _logger.LogError($"There is a bug in your application: {ex.Message}");
             }
-            ViewBag.TripCount = db.GetAllTrips().Count();
             return View();
         }
 
