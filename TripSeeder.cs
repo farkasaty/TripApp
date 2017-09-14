@@ -8,7 +8,7 @@ namespace TripApp
 {
     public class TripSeeder
     {
-        private TripContext _context;
+        private readonly TripContext _context;
 
         public TripSeeder(TripContext context)
         {

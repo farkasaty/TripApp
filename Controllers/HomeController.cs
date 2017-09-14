@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TripApp.Models;
 using Microsoft.Extensions.Configuration;
@@ -14,7 +12,7 @@ namespace TripApp.Controllers
     {
         private ITripRepository db;
         private IConfiguration _config;
-        private ILogger<HomeController> _logger;
+        private readonly ILogger<HomeController> _logger;
 
         public HomeController(IConfiguration config, ITripRepository tripRepository, ILogger<HomeController> logger)
         {

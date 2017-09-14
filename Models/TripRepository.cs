@@ -1,15 +1,13 @@
 ﻿using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace TripApp.Models
 {
     public class TripRepository : ITripRepository
     {
         private TripContext db;
-        private ILogger<TripRepository> _logger;
+        private readonly ILogger<TripRepository> _logger;
 
         public TripRepository(TripContext context, ILogger<TripRepository> logger)
         {
